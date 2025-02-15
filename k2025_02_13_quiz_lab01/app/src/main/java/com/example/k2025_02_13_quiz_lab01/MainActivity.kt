@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -56,7 +58,6 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
         modifier = Modifier.safeContentPadding()
     )
     {
-
         Text(
             text = "Hello $name!  The quiz is ready",
             fontSize = 40.sp,
@@ -100,7 +101,8 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.End,
         )
         {
-            Button(onClick = {}) {
+            ElevatedButton(onClick = {},
+                ) {
                 Text(
                     text = "Done",
                     fontSize = 24.sp,
