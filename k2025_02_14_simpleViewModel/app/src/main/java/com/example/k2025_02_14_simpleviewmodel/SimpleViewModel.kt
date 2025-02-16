@@ -10,4 +10,18 @@ class SimpleViewModel : ViewModel() {
 
     var myText by mutableStateOf("Hello ViewModel !")
 
+    companion object {
+        var index: Int = 0
+
+        fun incrementIndex() {
+            index += 1
+        }
+
+        fun getMyIndex() : Int {
+            return index
+        }
+    }
+
+
+
 }
