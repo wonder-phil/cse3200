@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
@@ -73,25 +75,20 @@ class ListOfTextItems {
 @Composable
 fun ButtonTest(name: String, modifier: Modifier = Modifier) {
     val listIndex = remember { mutableStateOf(0) }
-
-
     val insets = LocalWindowInsets.current
+    //val insets =  WindowInsets.systemBars
 
     Column(verticalArrangement = Arrangement.Top,
         modifier = Modifier
         .systemBarsPadding()
     ) {
-        // Retrieve system insets (in pixels)
-
         val density = LocalDensity.current
 
-        // Convert pixel insets to Dp
         val leftInset = with(density) { insets.systemBars.left.toDp() }
         val rightInset = with(density) { insets.systemBars.right.toDp() }
         val topInset = with(density) { insets.systemBars.top.toDp() }
         val bottomInset = with(density) { insets.systemBars.bottom.toDp() }
 
-        // Get full screen dimensions in Dp using LocalConfiguration
         val configuration = LocalConfiguration.current
         val screenWidthDp = configuration.screenWidthDp.dp
         val screenHeightDp = configuration.screenHeightDp.dp

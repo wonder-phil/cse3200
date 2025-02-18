@@ -60,9 +60,7 @@ fun MyScreen(myViewModel: SimpleViewModel) {
     Column() {
         Text(text = myViewModel.myText + " value: ${SimpleViewModel.getMyIndex()}",
             fontSize = 32.sp)
-
         Spacer(modifier = Modifier.height(16.dp))
-
         Button(onClick = { SimpleViewModel.incrementIndex() }) {
             Text("Increment",
                 fontSize = 32.sp)
