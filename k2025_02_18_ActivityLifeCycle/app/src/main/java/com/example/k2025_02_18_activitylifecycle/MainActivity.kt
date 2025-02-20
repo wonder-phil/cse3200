@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate() called")
         enableEdgeToEdge()
         setContent {
             K2025_02_18_ActivityLifeCycleTheme {
@@ -35,32 +36,32 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart() called")
+        Log.i(TAG, "onStart() called")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume() called")
+        Log.i(TAG, "onResume() called")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "onPause() called")
+        Log.i(TAG, "onPause() called")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "onStop() called")
+        Log.i(TAG, "onStop() called")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy() called")
+        Log.i(TAG, "onDestroy() called")
     }
 
     override fun onSaveInstanceState(bundle: Bundle) {
         super.onSaveInstanceState(bundle)
-        Log.d(TAG, "onSaveInstanceState() called with: bundle = $bundle")
+        Log.i(TAG, "onSaveInstanceState() called with: bundle = $bundle")
     }
 
 }

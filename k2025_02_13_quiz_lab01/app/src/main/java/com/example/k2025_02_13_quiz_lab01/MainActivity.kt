@@ -14,8 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
@@ -25,6 +28,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -66,28 +75,54 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
         Spacer(Modifier.height(30.dp))
         Text(
             text = ListOfBooleanQuestions.getBooleanQuestion(currentQuestion.value++).questionText,
-            fontSize = 34.sp,
-            modifier = modifier
+            style = TextStyle(
+                fontSize = 28.sp,
+                fontFamily = FontFamily.Serif,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary,
+                letterSpacing = 1.5.sp,
+                shadow = Shadow(
+                    color = Color.Black.copy(alpha = 0.7f),
+                    offset = Offset(1.25f, 1.25f),
+                    blurRadius = 4f
+                )
+            ),
+            modifier = Modifier.padding(16.dp)
         )
         Spacer(Modifier.height(20.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
         ) {
-            Button(onClick = { ListOfBooleanQuestions.nextQuestionIndex() }) {
-                Text(
-                    text = "True",
-                    fontSize = 24.sp,
-                    modifier = modifier
-                )
+
+            ElevatedButton(
+                onClick = { ListOfBooleanQuestions.nextQuestionIndex() },
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.LightGray,
+                    contentColor = Color.Black
+                ),
+            ) {
+                Text("True",
+                    fontSize = 32.sp,
+                    color = Color.Black,
+                    modifier = modifier)
             }
-            Button(onClick = {}) {
-                Text(
-                    text = "False",
-                    fontSize = 24.sp,
-                    modifier = modifier
-                )
+
+            ElevatedButton(
+                onClick = {  },
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.LightGray,
+                    contentColor = Color.Black
+                ),
+            ) {
+                Text("False",
+                    fontSize = 32.sp,
+                    color = Color.Black,
+                    modifier = modifier)
             }
+
             Button(onClick = {}) {
                 Text(
                     text = "Skip",
@@ -106,6 +141,7 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
                 Text(
                     text = "Done",
                     fontSize = 24.sp,
+                    color = Color.Yellow,
                     modifier = modifier
                 )
             }

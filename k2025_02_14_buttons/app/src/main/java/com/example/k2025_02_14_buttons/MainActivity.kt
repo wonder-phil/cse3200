@@ -116,7 +116,7 @@ fun ButtonTest(name: String, modifier: Modifier = Modifier) {
                     color = MaterialTheme.colorScheme.primary,
                     letterSpacing = 1.5.sp,
                     shadow = Shadow(
-                        color = Color.Black.copy(alpha = 0.3f),
+                        color = Color.Black.copy(alpha = 0.7f),
                         offset = Offset(1.25f, 1.25f),
                         blurRadius = 4f
                     )
