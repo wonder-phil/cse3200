@@ -1,5 +1,6 @@
 package com.example.k2025_02_13_quiz_lab01
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.ComponentActivity
@@ -37,18 +38,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.k2025_02_13_quiz_lab01.model.ListOfBooleanQuestions
+import com.example.k2025_02_13_quiz_lab01.model.Score
 import com.example.k2025_02_13_quiz_lab01.ui.theme.K2025_02_13_quiz_lab01Theme
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var scoreIntent : Intent
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        scoreIntent = Intent(getApplicationContext(), FinalScoreActivity::class.java);
+        scoreIntent.putExtra("totalSkipped", 99)
+
         setContent {
             K2025_02_13_quiz_lab01Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     QuestionScreen(
                         name = "Android",
+                        switchScreen = { this.startActivity(scoreIntent)},
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -57,8 +68,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
+fun QuestionScreen(name: String,
+                   switchScreen : () -> Unit,
+                   modifier: Modifier = Modifier) {
     var currentQuestion = remember {  mutableStateOf<Int>(ListOfBooleanQuestions.getCurrentQuestionIndex()) }
 
     Column(
@@ -123,7 +137,7 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
                     modifier = modifier)
             }
 
-            Button(onClick = {}) {
+            Button(onClick = { Score.incrementTotalSkipped() }) {
                 Text(
                     text = "Skip",
                     fontSize = 24.sp,
@@ -136,12 +150,14 @@ fun QuestionScreen(name: String, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.End,
         )
         {
-            ElevatedButton(onClick = {},
+            ElevatedButton(onClick = {
+                switchScreen()
+            },
                 ) {
                 Text(
                     text = "Done",
                     fontSize = 24.sp,
-                    color = Color.Yellow,
+                    color = Color.Black,
                     modifier = modifier
                 )
             }

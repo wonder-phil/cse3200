@@ -10,16 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.K2025_02_13_quiz_lab01"
+        android:theme="@style/Theme.K2025_02_27_blockingUiThread"
         tools:targetApi="31">
-        <activity
-            android:name=".FinalScoreActivity"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.K2025_02_13_quiz_lab01">
+            android:theme="@style/Theme.K2025_02_27_blockingUiThread">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
