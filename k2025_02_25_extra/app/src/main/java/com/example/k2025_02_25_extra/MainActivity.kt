@@ -1,7 +1,6 @@
-package com.example.k2025_02_24_simpleretrofit
+package com.example.k2025_02_25_extra
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,14 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.k2025_02_24_simpleretrofit.ui.theme.K2025_02_24_simpleRetroFitTheme
+import com.example.k2025_02_25_extra.ui.theme.K2025_02_25_extraTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-//import retrofit2.converter.scalars.ScalarsConverterFactory
+
+import com.example.k2025_02_25_extra.ApiService
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,54 +32,39 @@ class MainActivity : ComponentActivity() {
 
         val apiService = retrofit.create(ApiService::class.java)
 
-      CoroutineScope(Dispatchers.IO).launch {
-          try {
-              val user = apiService.getUsers()
-              Log.i("PGB",  user.name + " " + user.number.toString())
-          } catch (e: Exception) {
-              Log.d("PGB","Error: $e")
-          }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val user = apiService.getUser()
+                println("PGB: " + user.name + " " + user.number.toString())
+            } catch (e: Exception) {
+                println("PGB Error: $e")   }
         }
 
-
-
         setContent {
-            K2025_02_24_simpleRetroFitTheme {
+            K2025_02_25_extraTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
                     Greeting(
                         name = "Android",
-                        //apiService,
                         modifier = Modifier.padding(innerPadding)
                     )
-
                 }
             }
         }
     }
 }
 
-fun getUserData(apiService: ApiService) {
-
-    /*
-    CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val users = apiService.getUsers()
-            println("PGB: " + users.toString())
-        } catch (e: Exception) {
-            // Handle error
-        }
-    }
-
-     */
-}
-
 @Composable
-fun Greeting(name: String, //apiService: ApiService,
- modifier: Modifier = Modifier) {
-       //      getUserData(apiService)
+fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    K2025_02_25_extraTheme {
+        Greeting("Android")
+    }
 }
