@@ -28,11 +28,10 @@ class MainActivity : ComponentActivity() {
 
         val blockViewModel = ViewModelProvider(this)[BlockViewModel::class.java]
 
-        val myTextObserver by blockViewModel.btcHash.observeAsState()
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val myTextObserver by blockViewModel.btcHash.observeAsState()
             K2025_03_11_block_explorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                    Column(verticalArrangement = Arrangement.SpaceEvenly,
