@@ -16,18 +16,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.k2025_03_25_basic_radio.ui.theme.K2025_03_25_basic_radioTheme
 
-val url = "http://stream.whus.org:8000/whusfm"
+val url_UConn = "http://stream.whus.org:8000/whusfm"
+val url_UK = "https://radio.canstream.co.uk:8083/live.mp3"
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var mediaPlayer: MediaPlayer
+    private var mediaPlayer: MediaPlayer? = null
     private var radioOn: Boolean = false
+
+    private var radioIsSetup: Boolean = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setUpRadio()
+        setUpRadio(url_UConn)
         setContent {
             K2025_03_25_basic_radioTheme {
                 Column(
@@ -40,16 +43,35 @@ class MainActivity : ComponentActivity() {
                         )
                     Button(onClick = {
                         Log.i("PGB", "Radio start");
-                        mediaPlayer.start() }) {
-                        Text(text = "Start Radio")
+                        if (radioIsSetup) mediaPlayer?.start()
+                        }) {
+                            Text(text = "Start Radio")
+                        }
+                    Button(onClick = {
+                        Log.i("PGB", "Radio stop");
+                        mediaPlayer?.stop();
+                        mediaPlayer?.release()
+                        radioIsSetup = false
+                        }) {
+                            Text(text = "Stop Radio")
+                        }
+                    Button(onClick = {
+                        Log.i("PGB", "Radio station switch");
+                            if (radioIsSetup) {
+                                mediaPlayer?.stop();
+                                mediaPlayer?.release()
+                                mediaPlayer = null
+                                setUpRadio(url_UK)
+                            }
+                    }) {
+                        Text(text = "Switch Radio Station")
                     }
-
                 }
             }
         }
     }
 
-    private fun setUpRadio() {
+    private fun setUpRadio(myUrl: String) {
         mediaPlayer = MediaPlayer().apply {
             setAudioAttributes(
                 AudioAttributes.Builder()
@@ -57,8 +79,8 @@ class MainActivity : ComponentActivity() {
                     .setUsage(AudioAttributes.USAGE_MEDIA)
                     .build()
             )
-            setDataSource(url)
-            prepare()
+            setDataSource(myUrl)
+            prepareAsync()
         }
     }
 }
