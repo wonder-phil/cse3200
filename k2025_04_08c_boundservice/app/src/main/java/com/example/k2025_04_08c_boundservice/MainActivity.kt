@@ -19,6 +19,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,23 +65,23 @@ class MainActivity : ComponentActivity() {
                                     Log.i("PGB", "$myInt") } ) {
                     Text("Get random int", fontSize = 32.sp)
                 }
+                Text("myInt $myInt", fontSize = 32.sp)
+                ShowMyInt( { randomIntService.getRandomNumber() } )
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun ShowMyInt(myReference2Randomness: () -> Int, modifier: Modifier = Modifier) {
+    var myInt = remember { mutableStateOf(0) }
+
     Text(
-        text = "Hello $name!",
+        text = "Hello ${myInt.value}!",
+        fontSize = 32.sp,
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    K2025_04_08c_boundserviceTheme {
-        Greeting("Android")
+    Button(onClick = { myInt.value = myReference2Randomness() } ) {
+        Text("RInt Screen", fontSize = 32.sp)
     }
 }
