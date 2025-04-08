@@ -24,8 +24,8 @@ import com.example.k2025_04_01_bound_service.ui.theme.K2025_04_01_bound_serviceT
 
 class MainActivity : ComponentActivity() {
 
-    private var isBound = false
     private lateinit var localService: MyService
+    private var isBound = false
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
             isBound = true
             // Now it's safe to use localService
         }
+
 
         override fun onServiceDisconnected(arg0: ComponentName) {
             isBound = false
