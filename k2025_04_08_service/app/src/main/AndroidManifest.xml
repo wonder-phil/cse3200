@@ -16,8 +16,7 @@
             android:name=".service.MessengerService"
             android:enabled="true"
             android:exported="true"
-            android:process=".pt109"
-            ></service>
+            android:process=".pt109" />
 
         <activity
             android:name=".MainActivity"

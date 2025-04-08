@@ -25,7 +25,7 @@ class MessengerService : Service() {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 MSG_SAY_HELLO ->
-                    Toast.makeText(applicationContext, "hello!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "hello CSE 3200 !!", Toast.LENGTH_SHORT).show()
                 else -> super.handleMessage(msg)
             }
         }
