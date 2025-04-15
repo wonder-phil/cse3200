@@ -23,27 +23,13 @@ import com.example.k2025_04_10a_looperhandler_composable.ui.theme.K2025_04_10a_l
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var simpleLooperHandler: SimpleLooperHandler
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        simpleLooperHandler = SimpleLooperHandler()
-        simpleLooperHandler.start()
-
-        var message: Message = Message()
-        message.arg1 = 9
-        message.arg2 = -55
-        //message.obj =
-
-        setContent {
-
-            UpdateText("Hello!")
-            }
-        }
+        setContent {  UpdateText("Hello!") }
     }
+}
 
 
 @Composable
@@ -51,7 +37,6 @@ fun UpdateText(textToShow: String, modifier: Modifier = Modifier) {
     val myText = remember { mutableStateOf(textToShow) }
 
     var simpleLooperHandler = SimpleLooperHandler()
-
     simpleLooperHandler = SimpleLooperHandler()
     simpleLooperHandler.start()
 
@@ -64,16 +49,10 @@ fun UpdateText(textToShow: String, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize(0.9f)
     ) {
-
         Button(onClick = {
             simpleLooperHandler.mHandler.sendMessage(message)
             message = Message()
-            message.arg1 = 999
-            message.arg2 = -5566
-
-        }) {
-            Text(textToShow, fontSize = 32.sp)
-        }
+        }) { Text(textToShow, fontSize = 32.sp) }
         Text(myText.value, fontSize = 32.sp)
     }
 }
