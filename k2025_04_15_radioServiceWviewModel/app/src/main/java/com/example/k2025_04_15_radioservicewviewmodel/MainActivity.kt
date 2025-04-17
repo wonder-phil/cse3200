@@ -1,4 +1,4 @@
-package com.example.k2025_04_10_radioservice
+package com.example.k2025_04_15_radioservicewviewmodel
 
 import android.content.ComponentName
 import android.content.Context
@@ -12,6 +12,7 @@ import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,14 +20,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.k2025_04_10_radioservice.models.RadioStates
-import com.example.k2025_04_10_radioservice.services.RadioService
+import com.example.k2025_04_15_radioservicewviewmodel.models.RadioViewModel
+import com.example.k2025_04_15_radioservicewviewmodel.services.RadioService
 
 class MainActivity : ComponentActivity() {
+
 
     private var mService: Messenger? = null
     private var bound: Boolean = false
 
+    private val radioViewModel: RadioViewModel by viewModels { RadioViewModel.Factory }
 
     private val mConnection = object : ServiceConnection {
 
@@ -79,7 +82,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Bind to the service.
         Intent(this, RadioService::class.java).also { intent ->
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
         }
@@ -98,24 +100,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         var myInt = 0
         enableEdgeToEdge()
-        setContent {
-            Column(verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize(0.9f)) {
 
-                Button(onClick={ setUpMediaPlayer() }) {
+        setContent {
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize(0.9f)
+            ) {
+
+                Button(onClick = { setUpMediaPlayer() }) {
                     Text("Start media player")
                 }
 
-                Button(onClick = { startMediaPlayer() } ) {
+                Button(onClick = { startMediaPlayer() }) {
                     Text("Run media player")
                 }
 
-                Button(onClick = { stopNDestroyMediaPlayer() } ) {
+                Button(onClick = { stopNDestroyMediaPlayer() }) {
                     Text("Stop and destroy media player")
                 }
             }
         }
     }
 }
-
