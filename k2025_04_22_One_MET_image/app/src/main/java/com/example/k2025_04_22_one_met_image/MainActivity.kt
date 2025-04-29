@@ -1,12 +1,18 @@
 package com.example.k2025_04_22_one_met_image
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+//import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
+//import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
+//import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
+//import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +30,8 @@ class MainActivity : ComponentActivity() {
                 Column(verticalArrangement = Arrangement.Center,
                     horizontalAlignment =  Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize(0.5f)) {
-                    OneImage("https://images.metmuseum.org/CRDImages/ep/web-large/DT1567.jpg", modifier = Modifier)
+                    OneImage("https://images.metmuseum.org/CRDImages/ep/web-large/DT1567.jpg",
+                        modifier = Modifier.align(Alignment.CenterHorizontally))
                 }
 
             }
@@ -39,7 +46,7 @@ fun OneImage(url: String, modifier: Modifier = Modifier) {
     Image(
         painter = painter,
         contentDescription = "Image from MET",
-        modifier = modifier,
+        modifier = Modifier.clickable(onClick = { Log.i("PGB", "Dont touch the paintings!") }),
         contentScale = ContentScale.Crop
     )
 }
