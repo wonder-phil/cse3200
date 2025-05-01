@@ -29,8 +29,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             //VideoScreen()
-            //VideoScreenNasa()
-            VideoScreenTwoVideos()
+            VideoScreenNasa()
+            //VideoScreenTwoVideos()
         }
     }
 }
