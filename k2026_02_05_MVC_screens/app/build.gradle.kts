@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.k2026_02_04_screen_navigation"
+    namespace = "com.example.k2026_02_05_mvc_screens"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.k2026_02_04_screen_navigation"
+        applicationId = "com.example.k2026_02_05_mvc_screens"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -46,8 +46,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.compose)
-    
+
+
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     testImplementation(libs.junit)

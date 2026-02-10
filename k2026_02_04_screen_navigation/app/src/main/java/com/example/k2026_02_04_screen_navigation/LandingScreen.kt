@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LandingScreen(
-                  goToProfile: (Int) -> Unit
+    goToQuizScreen: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
@@ -21,7 +21,7 @@ fun LandingScreen(
     ) {
         Text("Landing Screen", style = MaterialTheme.typography.headlineMedium)
 
-        Button(onClick = { goToProfile(42) }) {
+        Button(onClick = { goToQuizScreen(42) }) {
             Text("Go to Quiz (userId=42)")
         }
     }
