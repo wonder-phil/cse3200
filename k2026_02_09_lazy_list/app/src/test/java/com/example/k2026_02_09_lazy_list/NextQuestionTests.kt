@@ -24,7 +24,7 @@ class NextQuestionTests {
         val nextQuestion = NextQuestion()
 
         repeat(totalNumberOfQuestions-1, { nextQuestion.getNextIncQuestionNumber() })
-        Assert.assertEquals(nextQuestion.getNextIncQuestionNumber(), 0)
+        Assert.assertEquals(nextQuestion.getNextIncQuestionNumber(), 1)
     }
 
 
@@ -34,7 +34,7 @@ class NextQuestionTests {
         val totalNumberOfQuestions = allQuestions.size
         val nextQuestion = NextQuestion()
 
-        Assert.assertTrue(nextQuestion.getNextRandomQuestionNumber() in (0..totalNumberOfQuestions))
+        Assert.assertTrue(nextQuestion.getNextRandomQuestionNumber() in (0..<totalNumberOfQuestions))
     }
 
 }

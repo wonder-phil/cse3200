@@ -16,9 +16,8 @@ class NextQuestion {
     }
 
     fun getNextRandomQuestionNumber() : Int {
-        val getRand = (0..totalQuestions).random()
+        val getRand = (0..< totalQuestions).random()
         return getRand
     }
-
 
 }

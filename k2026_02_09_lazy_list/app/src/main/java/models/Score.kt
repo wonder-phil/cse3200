@@ -2,7 +2,7 @@ package models
 
 class Score {
 
-    fun incrementTotalQuestions() {
+    fun incrementTotalQuestionsAnswered() {
         totalQuestions++
     }
 
@@ -11,12 +11,16 @@ class Score {
     }
 
     fun incrementScore(scoreChange: Double) {
-        incrementTotalQuestions()
+        incrementTotalQuestionsAnswered()
         score += scoreChange
     }
 
     fun getScore() : Double {
         return score
+    }
+
+    fun getTotalQuestions() : Int {
+        return totalQuestions
     }
 
     companion object {
