@@ -11,11 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.k2026_02_11_backstack_control.models.Score
 
 @Composable
 fun LandingScreen(
     goToQuizScreen: (Int) -> Unit
 ) {
+    //Score.startScore()
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -23,7 +25,7 @@ fun LandingScreen(
         Text("Landing Screen", style = MaterialTheme.typography.headlineMedium)
 
         Button(onClick = { goToQuizScreen(42) }) {
-            Text("Go to Quiz (userId=42)")
+            Text("Go to Quiz")
         }
     }
 }

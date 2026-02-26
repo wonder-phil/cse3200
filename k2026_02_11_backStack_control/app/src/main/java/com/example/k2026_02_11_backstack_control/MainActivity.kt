@@ -16,15 +16,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.k2026_02_11_backstack_control.models.Score
 import com.example.k2026_02_11_backstack_control.ui.theme.K2026_02_11_backStack_controlTheme
 
 object Routes {
     const val LANDING_SCREEN = "landing_screen"
     const val QUIZ_QUESTIONS = "quiz_questions"
     const val SUMMARY_SCREEN = "summary_screen"
-
-    const val QUIZ_ROUTE = "$QUIZ_QUESTIONS/{userId}"
-    const val SUMMARY_ROUTE = "$SUMMARY_SCREEN/{userId}"
 }
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +39,7 @@ class MainActivity : ComponentActivity() {
 
                     /* LANDING_SCREEN */
                     composable(Routes.LANDING_SCREEN) {
+                        Score.startScore()
                         LandingScreen(
                             goToQuizScreen = {
                                 navController.navigate("${Routes.QUIZ_QUESTIONS}/") {
@@ -66,7 +65,6 @@ class MainActivity : ComponentActivity() {
                     /* SUMMARY_SCREEN */
                     composable(
                         route = "${Routes.SUMMARY_SCREEN}/",
-
                     ) {
                         SummaryScreen(
                             restartQuiz = { navController.navigate(Routes.LANDING_SCREEN) {
