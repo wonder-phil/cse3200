@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class TextViewModel : ViewModel() {
-    private val _text = MutableLiveData("Hello ViewModel!")
+    private val _text = MutableLiveData<String>("Hello ViewModel!")
     val text: LiveData<String> = _text
 
     fun setText(newText: String) {

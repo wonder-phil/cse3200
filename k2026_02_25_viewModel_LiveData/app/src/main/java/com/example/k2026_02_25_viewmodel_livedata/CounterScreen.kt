@@ -26,5 +26,7 @@ fun CounterScreen(vm: CounterViewModel = viewModel()) {
             Button(onClick = vm::dec) { Text("−") }
             Button(onClick = vm::inc) { Text("+") }
         }
+
+        Text(text = "Count = $count", style = MaterialTheme.typography.headlineMedium)
     }
 }
