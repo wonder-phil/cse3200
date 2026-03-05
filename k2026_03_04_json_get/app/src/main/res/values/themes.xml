@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.K2026_03_04_json_get" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
