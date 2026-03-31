@@ -86,8 +86,6 @@ class MainActivity : ComponentActivity() {
 fun useServiceSafely(localService: () -> Int?, isBound: Boolean, ) : Int? {
     var result: Int? = -1
     if (isBound) {
-
-        //if (localService == null)  Log.i("PGB", "localService is null")
         result = localService?.invoke() as Int?
         Log.i("PGB", "Getting random number<: $result")
     }
@@ -99,9 +97,9 @@ fun useServiceSafely(localService: () -> Int?, isBound: Boolean, ) : Int? {
 fun ServiceConsole(localService: () -> Int?, isBound: Boolean, modifier: Modifier = Modifier) {
     var dataFromService = remember { mutableStateOf(0) }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize()) {
+    Column( horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier.fillMaxSize()) {
         Text(
             text = "Returned value is ${dataFromService.value}",
             modifier = modifier
