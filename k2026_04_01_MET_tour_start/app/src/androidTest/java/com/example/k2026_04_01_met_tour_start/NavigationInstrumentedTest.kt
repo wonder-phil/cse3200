@@ -2,7 +2,7 @@ package com.example.k2026_04_01_met_tour_start
 
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4
+
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -29,7 +29,7 @@ import org.junit.Rule
 class NavigationInstrumentedTest {
 
     @get:Rule
-    val composeTestRule = createComposeRule() //createAndroidComposeRule<MainActivity>()
+    val composeTestRule = createAndroidComposeRule<MainActivity>() //createComposeRule() //
 
     @Test
     fun clickingButton_navigatesToDetails() {

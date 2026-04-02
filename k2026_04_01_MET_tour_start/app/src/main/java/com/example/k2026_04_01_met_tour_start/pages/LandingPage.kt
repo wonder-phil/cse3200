@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +24,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
-import com.example.k2026_04_01_met_tour_start.routes.Routes
 
 @Composable
 fun LandingPage(
@@ -31,6 +31,8 @@ fun LandingPage(
     goToHistoryPage: () -> Unit,
     modifier: Modifier
 ) {
+    var searchText = remember { mutableStateOf("") }
+    val searchStrings = SearchStrings()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -40,12 +42,11 @@ fun LandingPage(
         Text("Landing Screen", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
         MetFrontDoor()
-        InputSearchTerm()
-        Button(onClick = { goToDisplayPage() }) {
+        InputSearchTerm( searchText =  searchText )
+        Button(onClick = { searchStrings.addSearchTerm("${searchText.value}"); goToDisplayPage() }) {
             modifier.testTag("goto_display_button")
             Text("Display Page")
         }
-
         Button(onClick = { goToHistoryPage() } ) {
             Text("History Page")
         }
@@ -63,7 +64,7 @@ fun MetFrontDoor() {
 }
 
 @Composable
-fun InputSearchTerm() {
+fun InputSearchTerm(searchText: MutableState<String>) {
     var text by remember { mutableStateOf("") }
     val searchStrings: SearchStrings = SearchStrings()
     Column {
@@ -76,6 +77,7 @@ fun InputSearchTerm() {
         )
 
         Text("Current value: $text")
-        searchStrings.addSearchTerm("$text")
+        searchText.value = text
+
     }
 }

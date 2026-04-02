@@ -6,20 +6,22 @@ class SearchStrings {
 
     companion object {
         var currentSearchString: String = ""
-        private var searchStringList: MutableList<String> = mutableListOf<String>()
+        var searchStringList: MutableList<String> = mutableListOf<String>()
     }
 
     fun addSearchTerm(term: String) {
-        Log.i("PGB","Added term $term")
-        searchStringList += term
+        //Log.i("PGB","Added term $term")
+        if (term != "")
+            searchStringList += term.lowercase()
     }
 
     fun isInSearchList(term: String) : Boolean {
-        if (term in searchStringList) {
-            return true
-        } else {
-            return false
-        }
+        return term.lowercase() in searchStringList
+    }
+
+    fun cleanAndDelete() {
+        currentSearchString = ""
+        searchStringList.clear()
     }
 
 }

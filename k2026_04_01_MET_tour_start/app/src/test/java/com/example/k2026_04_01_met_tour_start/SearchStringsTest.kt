@@ -1,10 +1,13 @@
 package com.example.k2026_04_01_met_tour_start
 
+import android.util.Log
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
+
+import org.junit.Before
 import org.junit.Test
-
 import org.junit.Assert.*
-
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
 
 /**
@@ -13,10 +16,19 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class SearchStringsTest {
-    @Test
-    fun emtpySearch() {
+    lateinit var searchStrings: SearchStrings
 
-        val searchStrings: SearchStrings = SearchStrings()
+    init {
+        searchStrings = SearchStrings()
+    }
+
+    @Before
+    fun startClean() {
+        searchStrings.cleanAndDelete()
+    }
+
+    @Test
+    fun emptySearch() {
         assertFalse(searchStrings.isInSearchList("FindMe"))
     }
 
@@ -25,9 +37,12 @@ class SearchStringsTest {
 
         val searchTerm: String= "Americana"
 
-        val searchStrings: SearchStrings = SearchStrings()
         searchStrings.addSearchTerm(searchTerm)
 
+        for (s in SearchStrings.searchStringList) {
+            println(s)
+            //Log.i("PGB", "in Search String list: $s")
+        }
         assertTrue(searchStrings.isInSearchList(searchTerm))
     }
 
@@ -35,9 +50,7 @@ class SearchStringsTest {
     fun setGetCurrentItem() {
 
         val searchTerm: String= "Americana"
-        val searchStrings: SearchStrings = SearchStrings()
         SearchStrings.currentSearchString = searchTerm
-
         assertTrue(SearchStrings.currentSearchString == searchTerm)
     }
 }

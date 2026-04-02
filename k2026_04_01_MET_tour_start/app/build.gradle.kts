@@ -51,12 +51,13 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation("androidx.navigation:navigation-testing:2.8.0")
+    implementation(libs.androidx.navigation.testing)
+    //androidTestImplementation("androidx.navigation:navigation-testing:2.8.0")
     //androidTestImplementation("androidx.compose.ui:ui-test-junit4:4:1.7.0")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.7.0")
+    //debugImplementation("androidx.compose.ui:ui-test-manifest:1.7.0")
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+    //testImplementation(libs.junit)
+    //androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

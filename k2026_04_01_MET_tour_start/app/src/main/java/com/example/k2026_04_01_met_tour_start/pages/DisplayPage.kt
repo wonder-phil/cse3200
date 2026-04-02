@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.k2026_04_01_met_tour_start.models.SearchStrings
 
 @Composable
 fun DisplayPage(
     goBack: () -> Unit
 ) {
+    val searchStrings = SearchStrings()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -25,7 +27,7 @@ fun DisplayPage(
         Spacer(modifier = Modifier.padding(vertical = 30.dp))
         Text("Display page", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
-
+        Text("Search string: ${SearchStrings.searchStringList}")
         Button(onClick = goBack) {
             Text("Back")
         }
