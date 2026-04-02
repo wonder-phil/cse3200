@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "k2026_02_11_more_screen_navigation"
+rootProject.name = "k2026_04_01_MET_tour_start"
 include(":app")
  
