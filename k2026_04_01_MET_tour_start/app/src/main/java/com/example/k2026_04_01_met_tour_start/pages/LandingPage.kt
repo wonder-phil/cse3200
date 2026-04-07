@@ -1,13 +1,23 @@
 package com.example.k2026_04_01_met_tour_start.pages
 
+import android.util.Log
 import com.example.k2026_04_01_met_tour_start.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -22,8 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
+import com.example.k2026_04_01_met_tour_start.models.met_data.Department
+import com.example.k2026_04_01_met_tour_start.models.met_data.MetDepartmentViewModel
 
 @Composable
 fun LandingPage(
@@ -31,6 +46,7 @@ fun LandingPage(
     goToHistoryPage: () -> Unit,
     modifier: Modifier
 ) {
+    //GetMetDepartments(modifier)
     var searchText = remember { mutableStateOf("") }
     val searchStrings = SearchStrings()
     Column(
@@ -43,11 +59,13 @@ fun LandingPage(
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
         MetFrontDoor()
         InputSearchTerm( searchText =  searchText )
-        Button(onClick = { searchStrings.addSearchTerm("${searchText.value}"); goToDisplayPage() }) {
-            modifier.testTag("goto_display_button")
+        Button(onClick = { searchStrings.addSearchTerm("${searchText.value}"); goToDisplayPage() },
+            modifier.testTag("goto_display_button")) {
+
             Text("Display Page")
         }
-        Button(onClick = { goToHistoryPage() } ) {
+        Button(onClick = { goToHistoryPage() },
+            modifier.testTag("goto_history_button")) {
             Text("History Page")
         }
     }
@@ -79,5 +97,77 @@ fun InputSearchTerm(searchText: MutableState<String>) {
         Text("Current value: $text")
         searchText.value = text
 
+    }
+}
+
+
+@Composable
+fun GetMetDepartments(modifier: Modifier = Modifier) {
+
+    val allMetDepartments = viewModel<MetDepartmentViewModel>().allMetDepartments
+
+    Log.i("PGB", "MET depts ${allMetDepartments}")
+    Column( verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = "Radio Lab",
+            fontSize = 32.sp,
+            modifier = modifier
+        )
+        LazyMetDepartmentColumn(allMetDepartments)
+    }
+}
+
+@Composable
+fun LazyMetDepartmentColumn(metDepartments: List<Department>) {
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+
+        items(metDepartments) { metDepartment ->
+            MetDepartmentCard(
+                department = metDepartment
+            )
+        }
+
+
+    }
+}
+
+@Composable
+fun MetDepartmentCard(
+    department: Department
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        onClick = { Log.i("PGB","Department cards $department") }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Spacer(modifier = Modifier.width(14.dp))
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = department.displayName ?: "Unknown department",
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
     }
 }

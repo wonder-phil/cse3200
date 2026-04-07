@@ -52,12 +52,12 @@ fun AppNavHost(navController: NavHostController) {
 
         composable(route = "${Routes.DISPLAY_PAGE}") { backStackEntry ->
             DisplayPage(
-                goBack = { navController.navigate("${Routes.LANDING_PAGE}") }
+                goBack = { navController.popBackStack() }
             )
         }
 
         composable(route = "${Routes.HISTORY_PAGE}" ) { backStackEntry ->
-            HistoryPage (goBack = { navController.navigate("${Routes.LANDING_PAGE}") })
+            HistoryPage (goBack = { navController.popBackStack() })
         }
     }
 

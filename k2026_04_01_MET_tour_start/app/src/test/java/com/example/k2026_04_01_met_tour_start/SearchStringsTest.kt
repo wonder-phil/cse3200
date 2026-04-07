@@ -38,11 +38,6 @@ class SearchStringsTest {
         val searchTerm: String= "Americana"
 
         searchStrings.addSearchTerm(searchTerm)
-
-        for (s in SearchStrings.searchStringList) {
-            println(s)
-            //Log.i("PGB", "in Search String list: $s")
-        }
         assertTrue(searchStrings.isInSearchList(searchTerm))
     }
 

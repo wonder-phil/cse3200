@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
 
@@ -28,7 +29,7 @@ fun DisplayPage(
         Text("Display page", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
         Text("Search string: ${SearchStrings.searchStringList}")
-        Button(onClick = goBack) {
+        Button(onClick = goBack, modifier = Modifier.testTag("display_back_button")) {
             Text("Back")
         }
     }

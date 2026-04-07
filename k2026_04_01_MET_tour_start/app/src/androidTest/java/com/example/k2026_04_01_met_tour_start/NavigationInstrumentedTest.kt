@@ -1,5 +1,6 @@
 package com.example.k2026_04_01_met_tour_start
 
+import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 
@@ -26,32 +27,56 @@ import org.junit.Rule
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class NavigationInstrumentedTest {
+class AppNavHostInstrumentedTest {
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>() //createComposeRule() //
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    @Test
-    fun clickingButton_navigatesToDetails() {
-        lateinit var navController: TestNavHostController
+    private lateinit var navController: TestNavHostController
 
+    private fun setNavContent() {
         composeTestRule.setContent {
             val context = LocalContext.current
-
             navController = TestNavHostController(context).apply {
                 navigatorProvider.addNavigator(ComposeNavigator())
             }
-
-            AppNavHost(navController = navController)
+            AppNavHost(navController)
         }
+    }
 
-        // Confirm start destination
-        // navController.currentBackStackEntry?.destination?.route
-        assertEquals(Routes.LANDING_PAGE, navController.navigate(Routes.LANDING_PAGE))
+    @Test
+    fun startsAtLandingPage() {
+        setNavContent()
+        assertEquals(Routes.LANDING_PAGE, navController.currentBackStackEntry?.destination?.route)
+    }
 
-
+    @Test
+    fun landingToDisplay() {
+        setNavContent()
         composeTestRule.onNodeWithTag("goto_display_button").performClick()
-        // Confirm details UI appears
-        composeTestRule.onNodeWithText("Details Screen").assertIsDisplayed()
+        assertEquals(Routes.DISPLAY_PAGE, navController.currentBackStackEntry?.destination?.route)
+    }
+
+    @Test
+    fun landingToHistory() {
+        setNavContent()
+        composeTestRule.onNodeWithTag("goto_history_button").performClick()
+        assertEquals(Routes.HISTORY_PAGE, navController.currentBackStackEntry?.destination?.route)
+    }
+
+    @Test
+    fun displayBackToLanding() {
+        setNavContent()
+        composeTestRule.onNodeWithTag("goto_display_button").performClick()
+        composeTestRule.onNodeWithTag("display_back_button").performClick()
+        assertEquals(Routes.LANDING_PAGE, navController.currentBackStackEntry?.destination?.route)
+    }
+
+    @Test
+    fun historyBackToLanding() {
+        setNavContent()
+        composeTestRule.onNodeWithTag("goto_history_button").performClick()
+        composeTestRule.onNodeWithTag("history_back_button").performClick()
+        assertEquals(Routes.LANDING_PAGE, navController.currentBackStackEntry?.destination?.route)
     }
 }

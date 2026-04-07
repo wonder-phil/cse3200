@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
 
@@ -61,7 +62,7 @@ fun HistoryPage(
 
 
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
-        Button(onClick = goBack) {
+        Button(onClick = goBack, modifier = Modifier.testTag("history_back_button")) {
             Text("Back")
         }
     }
