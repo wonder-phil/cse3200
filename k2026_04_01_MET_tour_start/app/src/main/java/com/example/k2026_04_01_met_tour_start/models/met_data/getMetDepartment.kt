@@ -5,13 +5,18 @@ import kotlinx.serialization.json.Json
 
 fun getMetDepartment(): List<Department> {
 
-    val jsonString: String = httpGet( "https://collectionapi.metmuseum.org/public/collection/v1/departments")
+    val jsonString: String =
+        httpGet("https://collectionapi.metmuseum.org/public/collection/v1/departments")
+
     val parser = Json { ignoreUnknownKeys = true }
 
-    val metDepartments: List<Department> = parser.decodeFromString(jsonString)
+    val response: DepartmentsResponse =
+        parser.decodeFromString(jsonString)
 
-    val first =metDepartments[0].toString()
-    Log.i("PGB", "First = ${first.toString()}")
+    val departments = response.departments
 
-    return metDepartments
+    val first = departments.firstOrNull()
+    Log.i("PGB", "First = $first")
+
+    return departments
 }

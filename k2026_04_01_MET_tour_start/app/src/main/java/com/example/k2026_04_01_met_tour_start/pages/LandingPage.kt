@@ -23,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,7 +47,7 @@ fun LandingPage(
     goToHistoryPage: () -> Unit,
     modifier: Modifier
 ) {
-    //GetMetDepartments(modifier)
+
     var searchText = remember { mutableStateOf("") }
     val searchStrings = SearchStrings()
     Column(
@@ -68,6 +69,7 @@ fun LandingPage(
             modifier.testTag("goto_history_button")) {
             Text("History Page")
         }
+        DepartmentScreen()
     }
 }
 
@@ -100,13 +102,20 @@ fun InputSearchTerm(searchText: MutableState<String>) {
     }
 }
 
+@Composable
+fun DepartmentScreen(viewModel: MetDepartmentViewModel = viewModel()) {
+    val departments by viewModel.departments.collectAsState()
+
+    LazyColumn {
+        items(departments) { dept ->
+            Text("${dept.departmentId}: ${dept.displayName}")
+        }
+    }
+}
 
 @Composable
 fun GetMetDepartments(modifier: Modifier = Modifier) {
 
-    val allMetDepartments = viewModel<MetDepartmentViewModel>().allMetDepartments
-
-    Log.i("PGB", "MET depts ${allMetDepartments}")
     Column( verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()) {
@@ -115,7 +124,7 @@ fun GetMetDepartments(modifier: Modifier = Modifier) {
             fontSize = 32.sp,
             modifier = modifier
         )
-        LazyMetDepartmentColumn(allMetDepartments)
+        //LazyMetDepartmentColumn(allMetDepartments)
     }
 }
 

@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 fun getMetObjectsFlow(numberOfObjects: Int): Flow<List<MetObject>> = flow<List<MetObject>> {
 
-    val jsonString: String = httpGet( "curl.exe https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=7")
+    val jsonString: String = httpGet( "https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=7")
     val parser = Json { ignoreUnknownKeys = true }
 
     val MetObjects: List<MetObject> = parser.decodeFromString(jsonString)
