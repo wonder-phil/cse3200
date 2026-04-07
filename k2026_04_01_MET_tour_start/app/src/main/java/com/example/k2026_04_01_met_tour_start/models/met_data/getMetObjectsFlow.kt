@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.serialization.json.Json
 
-fun getMetObjectsFlow(numberOfObjects: Int): Flow<List<MetObject>> = flow<List<MetObject>> {
+fun getMetObjectsFlow(departmentId: Int): Flow<List<MetObject>> = flow<List<MetObject>> {
 
     val jsonString: String = httpGet( "https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=7")
     val parser = Json { ignoreUnknownKeys = true }

@@ -40,6 +40,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.k2026_04_01_met_tour_start.models.SearchStrings
 import com.example.k2026_04_01_met_tour_start.models.met_data.Department
 import com.example.k2026_04_01_met_tour_start.models.met_data.MetDepartmentViewModel
+import com.example.k2026_04_01_met_tour_start.models.met_data.MetObject
+import com.example.k2026_04_01_met_tour_start.models.met_data.MetObjectsViewModel
+import com.example.k2026_04_01_met_tour_start.models.met_data.getMetObjectsFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
 
 @Composable
 fun LandingPage(
@@ -47,9 +53,9 @@ fun LandingPage(
     goToHistoryPage: () -> Unit,
     modifier: Modifier
 ) {
-
     var searchText = remember { mutableStateOf("") }
     val searchStrings = SearchStrings()
+    var metObjects: Flow<MetObject>
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -69,7 +75,11 @@ fun LandingPage(
             modifier.testTag("goto_history_button")) {
             Text("History Page")
         }
+
+        GetMetObjects()
         DepartmentScreen()
+
+
     }
 }
 
@@ -86,7 +96,7 @@ fun MetFrontDoor() {
 @Composable
 fun InputSearchTerm(searchText: MutableState<String>) {
     var text by remember { mutableStateOf("") }
-    val searchStrings: SearchStrings = SearchStrings()
+    //val searchStrings: SearchStrings = SearchStrings()
     Column {
         OutlinedTextField(
             value = text,
@@ -98,7 +108,6 @@ fun InputSearchTerm(searchText: MutableState<String>) {
 
         Text("Current value: $text")
         searchText.value = text
-
     }
 }
 
@@ -109,41 +118,20 @@ fun DepartmentScreen(viewModel: MetDepartmentViewModel = viewModel()) {
     LazyColumn {
         items(departments) { dept ->
             Text("${dept.departmentId}: ${dept.displayName}")
+            Log.i("PGB","department: ${dept}")
         }
     }
 }
 
 @Composable
-fun GetMetDepartments(modifier: Modifier = Modifier) {
+fun GetMetObjects(viewModel: MetObjectsViewModel = viewModel(), modifier: Modifier = Modifier) {
+    val metObjects by viewModel.metObjects.collectAsState()
 
-    Column( verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Radio Lab",
-            fontSize = 32.sp,
-            modifier = modifier
-        )
-        //LazyMetDepartmentColumn(allMetDepartments)
-    }
-}
-
-@Composable
-fun LazyMetDepartmentColumn(metDepartments: List<Department>) {
-
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-
-        items(metDepartments) { metDepartment ->
-            MetDepartmentCard(
-                department = metDepartment
-            )
+    LazyColumn {
+        items(metObjects) { mObject ->
+            Text("${mObject}: ${mObject}")
+            Log.i("PGB","Met Object: ${mObject}")
         }
-
-
     }
 }
 
@@ -165,7 +153,6 @@ fun MetDepartmentCard(
                 .padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Spacer(modifier = Modifier.width(14.dp))
             Column(
                 modifier = Modifier.weight(1f)
