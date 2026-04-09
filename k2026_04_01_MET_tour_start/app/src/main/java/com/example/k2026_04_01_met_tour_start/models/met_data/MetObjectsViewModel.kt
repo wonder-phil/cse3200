@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
+
+
 class MetObjectsViewModel() : ViewModel() {
     private val _metObjects = MutableStateFlow<List<Int>>( emptyList<Int>())
 

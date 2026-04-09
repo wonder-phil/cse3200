@@ -57,7 +57,8 @@ fun AppNavHost(navController: NavHostController) {
         }
 
         composable(route = "${Routes.HISTORY_PAGE}" ) { backStackEntry ->
-            HistoryPage (goBack = { navController.popBackStack() })
+            HistoryPage (
+                goBack = { navController.popBackStack() })
         }
     }
 

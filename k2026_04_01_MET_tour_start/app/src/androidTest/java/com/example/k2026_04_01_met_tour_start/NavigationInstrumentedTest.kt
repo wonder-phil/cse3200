@@ -53,7 +53,7 @@ class AppNavHostInstrumentedTest {
     @Test
     fun landingToDisplay() {
         setNavContent()
-        composeTestRule.onNodeWithTag("goto_display_button").performClick()
+        composeTestRule.onNodeWithTag("LandingPage:goto_display_button").performClick()
         assertEquals(Routes.DISPLAY_PAGE, navController.currentBackStackEntry?.destination?.route)
     }
 
@@ -67,7 +67,7 @@ class AppNavHostInstrumentedTest {
     @Test
     fun displayBackToLanding() {
         setNavContent()
-        composeTestRule.onNodeWithTag("goto_display_button").performClick()
+        composeTestRule.onNodeWithTag("LandingPage:goto_display_button").performClick()
         composeTestRule.onNodeWithTag("display_back_button").performClick()
         assertEquals(Routes.LANDING_PAGE, navController.currentBackStackEntry?.destination?.route)
     }

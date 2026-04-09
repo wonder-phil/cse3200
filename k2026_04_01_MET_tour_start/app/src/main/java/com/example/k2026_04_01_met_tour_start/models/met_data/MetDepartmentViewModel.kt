@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
+interface NumbersApi {
+    suspend fun getNumbers(): List<Int>
+}
+
 class MetDepartmentViewModel : ViewModel() {
 
     private val _departments = MutableStateFlow<List<Department>>(emptyList())

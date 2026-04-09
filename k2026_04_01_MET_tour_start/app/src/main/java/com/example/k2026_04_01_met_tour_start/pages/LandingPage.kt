@@ -67,7 +67,7 @@ fun LandingPage(
         MetFrontDoor()
         InputSearchTerm( searchText =  searchText )
         Button(onClick = { searchStrings.addSearchTerm("${searchText.value}"); goToDisplayPage() },
-            modifier.testTag("goto_display_button")) {
+            modifier.testTag("LandingPage:goto_display_button")) {
 
             Text("Display Page")
         }
